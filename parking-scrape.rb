@@ -32,4 +32,3 @@ garage_names.zip(spaces_available, total_spaces).each do |name, avail, total|
   insert into parking values("#{name}", #{avail}, #{total}, datetime());
 SQL
 end
-
