@@ -5,13 +5,6 @@ require 'dotenv'
 
 Dotenv.load
 
-#create table parking (
-#id integer primary key,
-#name varchar(40),
-#available integer,
-#total integer
-#)
-
 page = Nokogiri::HTML(open("http://secure.parking.ucf.edu/GarageCount/"))
 
 garage_names = []
