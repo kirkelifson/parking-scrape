@@ -1,6 +1,9 @@
-require 'sqlite3'
+require 'pg'
 require 'nokogiri'
 require 'open-uri'
+require 'dotenv'
+
+Dotenv.load
 
 #create table parking (
 #id integer primary key,
@@ -22,9 +25,15 @@ page.css('table > tr > td.dxgv').text.split(/[\d]+\/(.*)/).compact.each_slice(2)
 total_spaces.compact!.map!(&:chomp).map!(&:to_i)
 
 puts "Name\t\tAvailable\tTotal"
-SQLite3::Database.new("/var/www/parking-scrape/parking.db") do |db|
+
+begin
+  con = PG.connect host: 'localhost', user: 'parking', password: ENV['DB_PASSWORD'], dbname: 'parking'
   garage_names.zip(spaces_available, total_spaces).each do |name, avail, total|
     puts "#{name}\t#{avail}\t\t#{total}"
-    db.execute("insert into parking values('#{name}', #{avail}, #{total}, datetime())")
+    con.exec("INSERT INTO parking (name, available, total, created_at) VALUES('#{name}', #{avail}, #{total}, current_timestamp)")
   end
+rescue PG::Error => e
+  puts e.message
+ensure
+  con.close if con
 end
