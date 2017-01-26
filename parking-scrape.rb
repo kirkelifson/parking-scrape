@@ -15,7 +15,7 @@ page.css('table > tr > td.dxgv > strong').each { |a| spaces_available << a.text.
 
 total_spaces = []
 page.css('table > tr > td.dxgv').text.split(/[\d]+\/(.*)/).compact.each_slice(2) { |a, b| total_spaces << b }
-total_spaces.compact!.map!(&:chomp).map!(&:to_i)
+total_spaces.compact.map(&:chomp).map!(&:to_i)
 
 puts "Name\t\tAvailable\tTotal"
 
