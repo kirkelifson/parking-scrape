@@ -2,10 +2,10 @@ GEM
   remote: https://rubygems.org/
   specs:
     dotenv (2.2.1)
-    mini_portile2 (2.1.0)
-    nokogiri (1.7.1)
-      mini_portile2 (~> 2.1.0)
-    pg (0.20.0)
+    mini_portile2 (2.3.0)
+    nokogiri (1.8.1)
+      mini_portile2 (~> 2.3.0)
+    pg (0.21.0)
 
 PLATFORMS
   ruby
@@ -16,4 +16,4 @@ DEPENDENCIES
   pg
 
 BUNDLED WITH
-   1.14.6
+   1.16.0
