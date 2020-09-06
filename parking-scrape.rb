@@ -5,7 +5,7 @@ require 'dotenv'
 
 Dotenv.load
 
-page = Nokogiri::HTML(open("http://secure.parking.ucf.edu/GarageCount/"))
+page = Nokogiri::HTML(URI.open("http://secure.parking.ucf.edu/GarageCount/"))
 
 garage_names = []
 page.css('table > tr > td.dxgv').each_slice(3) { |a| garage_names << a[0].text }
