@@ -19,7 +19,7 @@ ruby parking-scrape.rb
 Example data:
 
 ```
-andromeda ~/parking-scrape master $ DB_PASSWORD=xxx ruby /home/xtc/parking-scrape/parking-scrape.rb
+~/parking-scrape $ DB_PASSWORD=xxx ruby parking-scrape.rb
 Name         Available    Total
 Garage A     0            1623
 Garage B     1105         1259
