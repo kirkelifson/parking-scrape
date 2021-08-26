@@ -1,7 +1,11 @@
-require 'pg'
+require 'dotenv'
+require 'logger'
 require 'nokogiri'
 require 'open-uri'
-require 'dotenv'
+require 'pg'
+
+logger = Logger.new($stdout)
+logger.level = Logger::WARN
 
 Dotenv.load
 
@@ -17,16 +21,16 @@ total_spaces = []
 page.css('table > tr > td.dxgv').text.split(/[\d]+\/(.*)/).compact.each_slice(2) { |a, b| total_spaces << b }
 total_spaces.compact.map(&:chomp).map!(&:to_i)
 
-puts "Name\t\tAvailable\tTotal"
+logger.debug "Name\t\tAvailable\tTotal"
 
 begin
   con = PG.connect host: 'localhost', user: 'parking', password: ENV['DB_PASSWORD'], dbname: 'parking'
   garage_names.zip(spaces_available, total_spaces).each do |name, avail, total|
-    puts "#{name}\t#{avail}\t\t#{total}"
+    logger.debug "#{name}\t#{avail}\t\t#{total}"
     con.exec("INSERT INTO parking (name, available, total, created_at) VALUES('#{name}', #{avail}, #{total}, current_timestamp)")
   end
 rescue PG::Error => e
-  puts e.message
+  logger.warn e.message
 ensure
   con.close if con
 end
