@@ -4,8 +4,10 @@ require 'nokogiri'
 require 'open-uri'
 require 'pg'
 
+log_level = ENV['LOG_LEVEL'] || 'warn'
+
 logger = Logger.new($stdout)
-logger.level = Logger::WARN
+logger.level = Kernel.const_get("Logger::#{log_level.upcase}")
 
 Dotenv.load
 
