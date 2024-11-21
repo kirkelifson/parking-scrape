@@ -4,10 +4,12 @@ A ruby script that parses UCF's [parking statistics](http://secure.parking.ucf.e
 
 ## Usage
 
-* Must have postgresql installed and running.
+* Must have postgresql installed and running, and a browser installed.
+* Override DB_USER, DB_PASSWORD, DH_HOST, and DB_NAME as needed.
 
 ```bash
-rvm install 2.3.3
+apt install chromium
+rvm install 3.3.6
 git clone https://github.com/kirkelifson/parking-scrape.git
 cd parking-scrape
 gem install bundler
@@ -16,16 +18,15 @@ ruby create-database.rb
 ruby parking-scrape.rb
 ```
 
-Example data:
+Example debug output:
 
 ```
-~/parking-scrape $ DB_PASSWORD=xxx ruby parking-scrape.rb
-Name         Available    Total
-Garage A     0            1623
-Garage B     1105         1259
-Garage C     1849         1852
-Garage D     1237         1241
-Garage H     1284         1284
-Garage I     1242         1231
-Garage Libra 677          1007
+% LOG_LEVEL=debug ruby parking_scrape.rb
+D, [2024-11-20T22:36:42.792057 #2275135] DEBUG -- : Name		Available	Total
+D, [2024-11-20T22:36:42.814712 #2275135] DEBUG -- : Garage A	1411		1647
+D, [2024-11-20T22:36:42.816934 #2275135] DEBUG -- : Garage B	1289		1289
+D, [2024-11-20T22:36:42.817739 #2275135] DEBUG -- : Garage C	498		1848
+D, [2024-11-20T22:36:42.818679 #2275135] DEBUG -- : Garage D	789		1289
+D, [2024-11-20T22:36:42.819378 #2275135] DEBUG -- : Garage H	1331		1331
+D, [2024-11-20T22:36:42.819983 #2275135] DEBUG -- : Garage I	1270		1270
 ```
