@@ -6,6 +6,8 @@ require 'open-uri'
 require 'pg'
 require 'debug'
 
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'.freeze
+
 log_level = ENV['LOG_LEVEL'] || 'warn'
 db_host = ENV.fetch('DB_HOST', 'localhost')
 db_user = ENV.fetch('DB_USER', 'parking')
@@ -20,7 +22,7 @@ Dotenv.load
 
 browser = Ferrum::Browser.new
 page = browser.create_page
-page.headers.set({ 'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36' })
+page.headers.set({ 'User-Agent' => USER_AGENT })
 page.go_to(url)
 body = Nokogiri::HTML5(page.body)
 browser.quit

@@ -1,10 +1,14 @@
 require 'pg'
 require 'dotenv'
 
+db_name = ENV.fetch('DB_NAME', 'parking')
+db_user = ENV.fetch('DB_USER', 'parking')
+db_password = ENV.fetch('DB_PASSWORD', nil)
+
 Dotenv.load
 
 begin
-  con = PG.connect host: 'localhost', dbname: 'parking', user: 'parking', password: ENV.fetch('DB_PASSWORD', nil)
+  con = PG.connect host: 'localhost', dbname: db_name, user: db_user, password: db_password
   sql = "
   CREATE TABLE
     parking(
